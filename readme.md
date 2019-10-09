@@ -55,14 +55,13 @@ Resources:
         - !Ref MySG1
       ImageId: ami-04b762b4289fba92b
       InstanceType: t2.micro
-      KeyName: forgetme
-      IamInstanceProfile: CdtStudentInstance
 ```
   
 - Look for where the code shows Value: student_server. Change student_server to your first name and last.  
 This will be used to identify your server later in the lab.  
 - Click the Refresh Diagram button at the top.  
 <p align="left"><img src="https://cdt-introcloud.s3-us-west-2.amazonaws.com/lab01/index_files/refreshdiagram.png?id=1"/></p>  
+
 - When done, you will see the server you created in the screen similar to this:  
 <p align="left"><img src="https://cdt-introcloud.s3-us-west-2.amazonaws.com/lab01/index_files/serverdiagram.png?id=1"/></p>  
   
@@ -97,6 +96,11 @@ Let's create the rule now.
         ToPort: 80
         CidrIp: 0.0.0.0/0
         Description: 'allow http connections'
+      SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: 0
+        ToPort: 65535
+        CidrIp: 0.0.0.0/0
 ```
   
 - Click the refresh diagram button  
@@ -119,8 +123,6 @@ Resources:
         - !Ref MySG1
       ImageId: ami-04b762b4289fba92b
       InstanceType: t2.micro
-      KeyName: forgetme
-      IamInstanceProfile: CdtStudentInstance
 
   MySG1:
     Type: 'AWS::EC2::SecurityGroup'
@@ -174,11 +176,8 @@ Resources:
           Value: student_server
       SecurityGroupIds:
         - !Ref MySG1
-        - sg-0ae9944a
       ImageId: ami-04b762b4289fba92b
       InstanceType: t2.micro
-      KeyName: forgetme
-      IamInstanceProfile: CdtStudentInstance
 
   MySG1:
     Type: 'AWS::EC2::SecurityGroup'
@@ -195,6 +194,11 @@ Resources:
         ToPort: 80
         CidrIp: 0.0.0.0/0
         Description: 'allow http connections'
+      SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: 0
+        ToPort: 65535
+        CidrIp: 0.0.0.0/0
 
   MyBucket:
     Type: AWS::S3::Bucket
