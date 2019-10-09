@@ -53,7 +53,6 @@ Resources:
           Value: student_server
       SecurityGroupIds:
         - !Ref MySG1
-        - sg-0ae9944a
       ImageId: ami-04b762b4289fba92b
       InstanceType: t2.micro
       KeyName: forgetme
