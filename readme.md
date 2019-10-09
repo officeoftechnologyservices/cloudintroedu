@@ -118,7 +118,6 @@ Resources:
           Value: student_server
       SecurityGroupIds:
         - !Ref MySG1
-        - sg-0ae9944a
       ImageId: ami-04b762b4289fba92b
       InstanceType: t2.micro
       KeyName: forgetme
@@ -139,6 +138,11 @@ Resources:
         ToPort: 80
         CidrIp: 0.0.0.0/0
         Description: 'allow http connections'
+      SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: 0
+        ToPort: 65535
+        CidrIp: 0.0.0.0/0
 ```
 ### S3 bucket
 Your server might need a place to store things for later use. There are many ways to store data in the cloud.  
