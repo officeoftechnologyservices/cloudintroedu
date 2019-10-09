@@ -1,0 +1,38 @@
+Resources:
+  #a server instance
+  MyServer01:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      Tags: 
+        - 
+          Key: Name
+          Value: jareds_server
+      SecurityGroupIds:
+        - !Ref MySG1
+        - sg-0ae9944a
+      ImageId: ami-04b762b4289fba92b
+      InstanceType: t2.micro
+      KeyName: forgetme
+
+  #a security group
+  MySG1:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: 'All of my servers are in this group.'
+      SecurityGroupIngress: 
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+          Description: 'allow ssh connections'
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+          Description: 'allow http connections'
+
+  #an s3 bucket
+  MyBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+        BucketName: cdt-bucket
